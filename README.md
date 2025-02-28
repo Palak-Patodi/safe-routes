@@ -18,7 +18,7 @@ Safe Route is a web application designed to enhance  safety by providing real-ti
 - **Leaflet.js**: Interactive maps to display routes.
 - **OpenCage API**: Geocoding services to convert location names into geographic coordinates.
 - **Backend**: Python and Flask – HTTP requests, routing, and server-side logic.
-- **Database**: MySQL – Stores district-wise crime data and user reports.
+- **Database**: firebase
 - **Data Processing**: Pandas and NumPy – Used to process and analyze crime data to generate safety scores.
 - **Crime Data**: Government Crime Dataset – Used to calculate safety scores for districts.
 
