@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mahila Sunaksha</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1 id="site-title">Mahila Sunaksha</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" id="home-link">Home</a></li>
+            <li><a href="login.html" id="login-link">Login</a></li>
+        </ul>
+    </nav>
+
+    <section class="login-content">
+        <div class="login-container">
+            <h2>Login to Your Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                   <input type="email" id="login-email" placeholder="Enter your email" required>
+
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <p id="footer-text">&copy; 2024 Mahila Sunaksha | Designed to keep you safe.</p>
+    </footer>
+
+    <script type="module">
+        // Import Firebase Modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+    
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzvRISqxTBdriyd7FM0Gu4XcsxvotX5xg",
+            authDomain: "react-auth-app-b9b81.firebaseapp.com",
+            projectId: "react-auth-app-b9b81",
+            storageBucket: "react-auth-app-b9b81.appspot.com",
+            messagingSenderId: "921059190563",
+            appId: "1:921059190563:web:xxxxxxxxxxxxxxxxxx"
+        };
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("✅ DOM Loaded, Ready for Login");
+    
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            console.log("✅ Firebase Initialized:", app);
+    
+            // Handle Login
+            const loginForm = document.getElementById("login-form");
+            if (loginForm) {
+                loginForm.addEventListener("submit", async function (e) {
+                    e.preventDefault();
+    
+                    const email = document.getElementById("login-email").value.trim();
+                    const password = document.getElementById("password").value;
+    
+                    try {
+                        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                        const user = userCredential.user;
+    
+                        // Store user info in localStorage
+                        localStorage.setItem("userEmail", user.email);  // Store email
+                        localStorage.setItem("userName", email.split("@")[0]); // Extract name from email
+    
+                        alert("✅ Login successful! Redirecting...");
+                        window.location.href = "index.html";  // Redirect to Home Page (Dashboard)
+                    } catch (error) {
+                        alert(`❌ Login failed: ${error.message}`);
+                    }
+                });
+            }
+        });
+    </script>
+    
+    
+    
+</body>
+</html>
