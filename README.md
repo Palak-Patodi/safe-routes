@@ -2,7 +2,7 @@
 ![logo] https://github.com/Palak-Patodi/safe-routes/blob/main/logos.jpg
 
 ## Overview
-Safe Route is a web application designed to enhance women's safety by providing real-time, data-driven route suggestions. By calculating safety scores for each district based on crime rates, it helps users select the safest routes and avoid high-risk areas. The app integrates live crime data, empowering women to make informed travel decisions, thereby promoting security in communities.
+Safe Route is a web application designed to enhance  safety by providing real-time, data-driven route suggestions. By calculating safety scores for each district based on crime rates, it helps users select the safest routes and avoid high-risk areas. The app integrates live crime data, empowering people to make informed travel decisions, thereby promoting security in communities.
 
 ## Features
 - **Real-time Safety Scores**: Calculates district-wise safety scores based on crime data to suggest the safest routes.
@@ -25,34 +25,7 @@ Safe Route is a web application designed to enhance women's safety by providing 
 3. **Interactive Map**: The user interacts with a map to choose their route, with safety scores visible for each district along the way.
 
 ## Use Cases
-- **Late-night travel**: A woman uses Mahila Sunaksha to find the safest route for her late-night travel, avoiding high-crime areas.
-- **Incident Reporting**: After completing her journey, a user reports an unsafe area due to an incident or crime witnessed, helping future travelers.
-- **Daily Commute**: A woman uses the app daily to ensure she follows the safest route to and from work.
-- **Group Outing**: A group of women uses the app to plan the safest path for their outing, avoiding risky areas.
-
-## Getting Started
-To get started with the project, clone this repository and follow the setup instructions.
-
-```bash
-git clone https://github.com/yourusername/mahilasunaksha.git
-cd mahabasunaksha
-```
-
-### Installation
-
-1. Install necessary dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. Set up your MySQL database and import the crime dataset.
-
-3. Run the Flask application:
-   ```bash
-   python app.py
-   ```
-
-4. Open the application in your browser at `http://localhost:5000`.
-
-## Contributing
-Feel free to fork the repository, create a new branch, and submit pull requests. Contributions are welcome!
+- **Late-night travel**: to find the safest route for her late-night travel, avoiding high-crime areas.
+- **Incident Reporting**: After completing the journey, a user reports an unsafe area due to an incident or crime witnessed, helping future travelers.
+- **Daily Commute**: A person uses the app daily to ensure that he/she follows the safest route to and from work.
+- **Group Outing**: a person uses the app to plan the safest path for their outing, avoiding risky areas.
