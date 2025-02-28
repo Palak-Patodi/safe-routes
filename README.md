@@ -9,7 +9,10 @@ Safe Route is a web application designed to enhance  safety by providing real-ti
 - **Interactive Maps**: Displays routes with safety ratings on interactive maps.
 - **User Reports**: Allows users to report unsafe areas, helping others avoid potential risks.
 - **Route Planning**: Helps users plan safe paths based on district crime data.
-
+- **call the police**
+- **sos feature**
+- **emergency contact**
+- 
 ## Technology Stack
 - **Frontend**: HTML, CSS, JavaScript – UI design and client-side scripting.
 - **Leaflet.js**: Interactive maps to display routes.
