@@ -1,8 +1,8 @@
-# Safe Route: Women’s Safety Web Application
-![logo]
+# Safe Route: Web Application
+![logo] https://github.com/Palak-Patodi/safe-routes/blob/main/logos.jpg
 
 ## Overview
-Mahila Sunaksha is a web application designed to enhance women's safety by providing real-time, data-driven route suggestions. By calculating safety scores for each district based on crime rates, it helps users select the safest routes and avoid high-risk areas. The app integrates live crime data, empowering women to make informed travel decisions, thereby promoting security in communities.
+Safe Route is a web application designed to enhance women's safety by providing real-time, data-driven route suggestions. By calculating safety scores for each district based on crime rates, it helps users select the safest routes and avoid high-risk areas. The app integrates live crime data, empowering women to make informed travel decisions, thereby promoting security in communities.
 
 ## Features
 - **Real-time Safety Scores**: Calculates district-wise safety scores based on crime data to suggest the safest routes.
