@@ -11,6 +11,45 @@ document.addEventListener('DOMContentLoaded', function() {
     addSOSButton();
     addEmergencyContacts();
 
+    const reportForm = document.getElementById("report-form");
+    const reportList = document.getElementById("report-list");
+
+    function loadReports() {
+        const reports = JSON.parse(localStorage.getItem("userReports")) || [];
+        reportList.innerHTML = reports.map(r => `
+            <li>
+                <h3>${r.type}</h3>
+                <p><strong>Location:</strong> ${r.location}</p>
+                <p><strong>Description:</strong> ${r.desc}</p>
+            </li>
+        `).join("");
+    }
+
+    reportForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent page reload
+
+        const newReport = {
+            type: document.getElementById("incident-type").value,
+            location: document.getElementById("incident-location").value,
+            desc: document.getElementById("incident-description").value
+        };
+
+        if (!newReport.type || !newReport.location || !newReport.desc) {
+            alert("❌ Please fill all fields!");
+            return;
+        }
+
+        const reports = JSON.parse(localStorage.getItem("userReports")) || [];
+        reports.push(newReport);
+        localStorage.setItem("userReports", JSON.stringify(reports));
+
+        alert("✅ Report submitted successfully!");
+        reportForm.reset();
+        loadReports(); // Update the list instantly
+    });
+
+    loadReports(); // Load reports on page load
+
 });
 
 function initMap() {
