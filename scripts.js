@@ -67,6 +67,44 @@ function initMap() {
 }
 
 //2nd addition in my code
+//liveeeeeeeeeeeeeeeeeeeee location function 
+function showLiveLocation() {
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        return;
+    }
+
+    // Get user's location & update it in real-time
+    navigator.geolocation.watchPosition(position => {
+        const { latitude, longitude } = position.coords;
+        
+        // Update map view to user's location
+        map.setView([latitude, longitude], 15);
+
+        // Remove previous marker if it exists
+        if (window.userMarker) {
+            map.removeLayer(window.userMarker);
+        }
+
+        // Add marker for live location
+        window.userMarker = L.marker([latitude, longitude]).addTo(map)
+            .bindPopup("📍 You are here").openPopup();
+        
+        console.log(`Live location updated: ${latitude}, ${longitude}`);
+    }, error => {
+        alert("Unable to retrieve your location.");
+        console.error("Geolocation error:", error);
+    }, {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 5000
+    });
+}
+
+// Call this function when the page loads
+document.addEventListener("DOMContentLoaded", showLiveLocation);
+
+//end of liveeeeeeeee location function
 
 function addSOSButton() {
     const sosButton = document.createElement('button');
