@@ -10,6 +10,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <!-- Add a form submission service for SOS emails -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -22,7 +24,6 @@
             <li><a href="login.html" id="login-link">Login</a></li>
             <li><button id="logout-btn" style="display: none;">Logout</button></li>
             <li><a href="delhi.html" id="delhi-link">Delhi Safety Planner</a></li>
-
         </ul>
     </nav>
     <div class="moving-tagline">
@@ -60,11 +61,6 @@
                 <button type="submit" class="btn">Submit Report</button>
             </form>
         </div>
-
-        <!-- <div class="review-section">
-            <h2>Recent Reports</h2>
-            <ul id="report-list"></ul> <!-- Ensure this exists -->
-        </div> -->
         
         <div class="review-section">
             <h2>Recent Reports</h2>
@@ -93,7 +89,6 @@
     src="https://www.youtube.com/embed/KVpxP3ZZtAc" 
     title="Self Defense Video" frameborder="0" allowfullscreen>
 </iframe>
-
         </div>
 
         <div class="tips-container">
@@ -142,5 +137,6 @@
         });
     </script>
 <script src="scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </body>
 </html>
