@@ -21,6 +21,11 @@ Safe Route is a web application designed to enhance  safety by providing real-ti
 - **Database**: firebase
 - **Data Processing**: Pandas and NumPy – Used to process and analyze crime data to generate safety scores.
 - **Crime Data**: Government Crime Dataset – Used to calculate safety scores for districts.
+- NCRB (National Crime Records Bureau)
+  State crime portals
+  Or datasets available from data.gov.in
+
+
 
 ## How It Works
 1. **Route Safety Calculation**: The app calculates a safety score for each district based on crime rates from the dataset, guiding users to the safest routes.
