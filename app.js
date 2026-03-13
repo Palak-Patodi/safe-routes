@@ -13,18 +13,18 @@ dotenv.config();
 const app = express();
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+// mongoose.connect(process.env.MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }).then(() => console.log('MongoDB Connected'))
+//   .catch(err => console.log(err));
 
-const UserSchema = new mongoose.Schema({
-    googleId: String,
-    name: String,
-    email: String
-});
-const User = mongoose.model('User', UserSchema);
+// const UserSchema = new mongoose.Schema({
+//     googleId: String,
+//     name: String,
+//     email: String
+// });
+// const User = mongoose.model('User', UserSchema);
 
 // Firebase Admin Setup
 const firebaseConfig = {
