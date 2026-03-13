@@ -1,11 +1,9 @@
-
-
-
-
 const OPENCAGE_API_KEY = 'f70c1042f67043818d42e63b5d4a4e9d';
 
 let map;
 let routingControl;
+let currentLiveLocation = null;
+let routeActive = false; // 🔒 Prevents live location from snapping map back after route is set
 
 document.addEventListener('DOMContentLoaded', function() {
     initMap();
@@ -468,28 +466,53 @@ function getSafetyScore(lat, lng, callback) {
 }
 
 function findRoute() {
-    const start = document.getElementById('start').value;
+    const startInput = document.getElementById('start').value;
     const destination = document.getElementById('destination').value;
     const safetyScoresElement = document.getElementById('safety-scores');
 
-    if (start && destination) {
-        geocodeAddress(start, startCoords => {
-            geocodeAddress(destination, endCoords => {
-                routingControl.setWaypoints([
-                    L.latLng(startCoords[0], startCoords[1]),
-                    L.latLng(endCoords[0], endCoords[1])
-                ]);
+    if (!destination) {
+        alert('Please enter a destination.');
+        return;
+    }
 
-                getSafetyScore(startCoords[0], startCoords[1], startSafetyScore => {
-                    getSafetyScore(endCoords[0], endCoords[1], endSafetyScore => {
-                        safetyScoresElement.innerHTML = `Safety Score for Start: ${startSafetyScore.toFixed(2)}<br>Safety Score for Destination: ${endSafetyScore.toFixed(2)}`;
-                    });
-                });
+    const processRoute = (startCoords, endCoords) => {
+        routeActive = true; // 🔒 Lock map from snapping back to live location
+
+        routingControl.setWaypoints([
+            L.latLng(startCoords[0], startCoords[1]),
+            L.latLng(endCoords[0], endCoords[1])
+        ]);
+
+        // ✅ Fit map to show the full route between start and destination
+        const bounds = L.latLngBounds(
+            [startCoords[0], startCoords[1]],
+            [endCoords[0], endCoords[1]]
+        );
+        map.fitBounds(bounds, { padding: [50, 50] });
+
+        // Redraw hotspots so they appear on top of the route or don't get cleared by map changes
+        addHotspots();
+
+        getSafetyScore(startCoords[0], startCoords[1], startSafetyScore => {
+            getSafetyScore(endCoords[0], endCoords[1], endSafetyScore => {
+                safetyScoresElement.innerHTML = `Safety Score for Start: ${startSafetyScore.toFixed(2)}<br>Safety Score for Destination: ${endSafetyScore.toFixed(2)}`;
             });
         });
-    } else {
-        alert('Please enter both start and destination.');
-    }
+    };
+
+    geocodeAddress(destination, endCoords => {
+        if (!startInput || startInput.toLowerCase() === 'my location') {
+            if (currentLiveLocation) {
+                processRoute([currentLiveLocation.lat, currentLiveLocation.lng], endCoords);
+            } else {
+                alert('Live location not available yet. Please wait or enter a start location.');
+            }
+        } else {
+            geocodeAddress(startInput, startCoords => {
+                processRoute(startCoords, endCoords);
+            });
+        }
+    });
 }
 function submitReport(event) {
     event.preventDefault();
@@ -568,24 +591,48 @@ function showLiveLocation() {
 
     navigator.geolocation.watchPosition(position => {
         const { latitude, longitude } = position.coords;
+        currentLiveLocation = { lat: latitude, lng: longitude };
 
-        map.setView([latitude, longitude], 15);
+        const startInput = document.getElementById('start');
+        if (startInput && !startInput.value) {
+            startInput.value = 'My Location';
+        }
+
+        // ✅ Only re-center map on live location if no route has been set yet
+        if (!routeActive) {
+            map.setView([latitude, longitude], 15);
+        }
 
         if (window.userMarker) {
             map.removeLayer(window.userMarker);
         }
 
         window.userMarker = L.marker([latitude, longitude]).addTo(map)
-            .bindPopup("📍 You are here").openPopup();
+            .bindPopup("📍 You are here");
 
         console.log(`Live location updated: ${latitude}, ${longitude}`);
     }, error => {
-        alert("Unable to retrieve your location.");
+        let errorMsg = "Unable to retrieve your location.\n\nReason: ";
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                errorMsg += "Location access was denied. Please allow location permissions in your browser.";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                errorMsg += "Location information is unavailable. Check if your device's location services are ON.";
+                break;
+            case error.TIMEOUT:
+                errorMsg += "The request to get user location timed out. Try again.";
+                break;
+            default:
+                errorMsg += "An unknown error occurred.";
+                break;
+        }
+        alert(errorMsg);
         console.error("Geolocation error:", error);
     }, {
         enableHighAccuracy: true,
         maximumAge: 0,
-        timeout: 5000
+        timeout: 10000 // Increased timeout to 10 seconds
     });
 }
 // let userId = 1;
